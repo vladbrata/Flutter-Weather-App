@@ -29,6 +29,29 @@ class _WeatherState extends State<WeatherPage> {
     }
   }
 
+  String getWeatherCondition(String? mainCondition) {
+    if (mainCondition == null) return 'assets/lotties/sunny.json';
+    switch (mainCondition.toLowerCase()) {
+      case 'clouds':
+      case 'mist':
+      case 'smoke':
+      case 'haze':
+      case 'dust':
+      case 'fog':
+        return 'assets/lotties/cloud.json';
+      case 'rain':
+      case 'drizzle':
+      case 'shower rain':
+        return 'assets/lotties/rain.json';
+      case 'thunderstorm':
+        return 'assets/lotties/thunderstorn.json';
+      case 'clear':
+        return 'assets/lotties/sunny.json';
+      default:
+        return 'assets/lotties/sunny.json';
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -38,15 +61,37 @@ class _WeatherState extends State<WeatherPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[800],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(_weather?.cityName ?? 'loading city...'),
+            Icon(
+              Icons.location_on, // Iconița de locație
+              color: Colors.grey, // Culoarea (de obicei roșu pentru locație)
+              size: 40.0,
+            ),
+            Text(
+              _weather?.cityName ?? 'loading city...',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
 
-            Lottie.asset('assets/lotties/sunny.json'),
+            Lottie.asset(getWeatherCondition(_weather?.mainCondition)),
 
-            Text('${_weather?.temperature.round()}°C'),
+            Text(
+              '${_weather?.temperature.round()}°C',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            Text(_weather?.mainCondition ?? ''),
           ],
         ),
       ),
