@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_app/models/weather_model.dart';
 import 'package:flutter_weather_app/service/weather_service.dart';
+import 'package:lottie/lottie.dart';
 
 class WeatherPage extends StatefulWidget {
   WeatherPage({Key? key}) : super(key: key);
@@ -41,7 +42,10 @@ class _WeatherState extends State<WeatherPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(_weather?.cityName ?? 'loading cityyy...'),
+            Text(_weather?.cityName ?? 'loading city...'),
+
+            Lottie.asset('assets/lotties/sunny.json'),
+
             Text('${_weather?.temperature.round()}°C'),
           ],
         ),
